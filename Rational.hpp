@@ -19,8 +19,8 @@ public:
     bool operator!=(const Rational& src) const;
     bool operator<=(const Rational& src) const;
     bool operator>=(const Rational& src) const;
-    operator float() const;
-    operator double() const;
+    explicit operator float() const;
+    explicit operator double() const;
     std::string PrintRational() const;
 };
 
