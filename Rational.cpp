@@ -83,12 +83,12 @@ bool Rational::operator>=(const Rational &src) const {
     return NOK(denominator_, src.denominator_)/denominator_*numerator_ >= NOK(denominator_, src.denominator_)/src.denominator_*src.numerator_;
 }
 
-double Rational::Cast_Double() const {
-    return static_cast<double>(GetNumerator()) / static_cast<double>(GetDenominator());
+Rational::operator float() const {
+    return static_cast<float>(numerator_) / static_cast<float>(denominator_);
 }
 
-float Rational::Cast_Float() const {
-    return static_cast<float>(GetNumerator()) / static_cast<float>(GetDenominator());
+Rational::operator double() const {
+    return static_cast<double>(numerator_) / static_cast<double>(denominator_);
 }
 
 string Rational::PrintRational() const {

@@ -34,14 +34,14 @@ void test_3() {
 
 void test_4() {
     Rational r = Rational(1,2);
-    if (abs(r.Cast_Double()-0.5000) > 0.0001) {
+    if (abs(static_cast<double>(r)-0.5000) > 0.0001) {
         cout << "FAIL!!!" <<endl;
     }
 }
 
 void test_5() {
     Rational r = Rational(1,3);
-    if (abs(r.Cast_Float()-0.3333) > 0.0001) {
+    if (abs(static_cast<float>(r)-0.3333) > 0.0001) {
         cout << "FAIL!!!" <<endl;
     }
 }
