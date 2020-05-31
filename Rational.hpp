@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include <iostream>
 
 class Rational {
     int numerator_;
@@ -21,7 +21,6 @@ public:
     bool operator>=(const Rational& src) const;
     explicit operator float() const;
     explicit operator double() const;
-    std::string PrintRational() const;
 };
 
 std::ostream& operator << (std::ostream& stream, const Rational& src);

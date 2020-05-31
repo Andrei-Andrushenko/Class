@@ -1,6 +1,5 @@
 #include "Rational.hpp"
 #include <stdexcept>
-#include <sstream>
 
 using namespace std;
 
@@ -16,10 +15,6 @@ int NOD(int a, int b) {
         }
     }
     return a+b;
-}
-
-int NOK(int a, int b) {
-    return a*b/NOD(a,b);
 }
 
 int Rational::GetNumerator() const {
@@ -38,9 +33,8 @@ Rational::Rational(int numerator, int denominator) : numerator_(numerator), deno
         denominator_*=-1;
         numerator_*=-1;
     }
-    int a=NOD(GetNumerator(), GetDenominator());
-    numerator_/=a;
-    denominator_/=a;
+    numerator_/=NOD(GetNumerator(), GetDenominator());
+    denominator_/=NOD(GetNumerator(), GetDenominator());
 }
 
 Rational Rational::operator+(const Rational &src) const {
@@ -64,11 +58,11 @@ bool Rational::operator==(const Rational &src) const {
 }
 
 bool Rational::operator<(const Rational &src) const {
-    return NOK(denominator_, src.denominator_)/denominator_*numerator_ < NOK(denominator_, src.denominator_)/src.denominator_*src.numerator_;
+    return numerator_*src.denominator_ < denominator_*src.numerator_;
 }
 
 bool Rational::operator>(const Rational &src) const {
-    return NOK(denominator_, src.denominator_)/denominator_*numerator_ > NOK(denominator_, src.denominator_)/src.denominator_*src.numerator_;
+    return numerator_*src.denominator_ > denominator_*src.numerator_;
 }
 
 bool Rational::operator!=(const Rational &src) const {
@@ -76,11 +70,11 @@ bool Rational::operator!=(const Rational &src) const {
 }
 
 bool Rational::operator<=(const Rational &src) const {
-    return NOK(denominator_, src.denominator_)/denominator_*numerator_ <= NOK(denominator_, src.denominator_)/src.denominator_*src.numerator_;
+    return numerator_*src.denominator_ <= denominator_*src.numerator_;
 }
 
 bool Rational::operator>=(const Rational &src) const {
-    return NOK(denominator_, src.denominator_)/denominator_*numerator_ >= NOK(denominator_, src.denominator_)/src.denominator_*src.numerator_;
+    return numerator_*src.denominator_ >= denominator_*src.numerator_;
 }
 
 Rational::operator float() const {
@@ -91,14 +85,8 @@ Rational::operator double() const {
     return static_cast<double>(numerator_) / static_cast<double>(denominator_);
 }
 
-string Rational::PrintRational() const {
-    stringstream ss;
-    ss << GetNumerator() << '/' << GetDenominator();
-    return ss.str();
-}
-
 ostream& operator<<(ostream& stream, const Rational& rational) {
-    return stream << rational.PrintRational();
+    return stream << rational.GetNumerator() << '/' << rational.GetDenominator();
 }
 
 istream& operator>>(istream& stream, Rational& rational) {
